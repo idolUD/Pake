@@ -1,7 +1,7 @@
 #![cfg_attr(
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
-)] // Òş²Øµô¿ØÖÆÌ¨´°¿Ú
+)] // éšè—æ‰æ§åˆ¶å°çª—å£
 
 use tauri_utils::config::{Config, WindowConfig};
 #[cfg(target_os = "macos")]
@@ -66,9 +66,9 @@ fn main() -> wry::Result<()> {
 
     #[cfg(target_os = "windows")]
     let window = common_window
-        .with_decorations(true) // ÏÔÊ¾±êÌâÀ¸ºÍ²Ëµ¥À¸
+        .with_decorations(true) // æ˜¾ç¤ºæ ‡é¢˜æ å’Œèœå•æ 
         .with_title("")
-        // .with_menu(menu_bar_menu) // ²Ëµ¥À¸ÄÚÈİ
+        // .with_menu(menu_bar_menu) // èœå•æ å†…å®¹
         .build(&event_loop)
         .unwrap();
     #[cfg(target_os = "macos")]
