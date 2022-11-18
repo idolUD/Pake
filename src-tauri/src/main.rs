@@ -1,3 +1,8 @@
+#![cfg_attr(
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
+)] // 隐藏掉控制台窗口
+
 use tauri_utils::config::{Config, WindowConfig};
 #[cfg(target_os = "macos")]
 use wry::application::platform::macos::WindowBuilderExtMacOS;
@@ -61,8 +66,9 @@ fn main() -> wry::Result<()> {
 
     #[cfg(target_os = "windows")]
     let window = common_window
-        .with_decorations(false)
+        .with_decorations(true) // 显示标题栏和菜单栏
         .with_title("")
+        // .with_menu(menu_bar_menu) // 菜单栏内容
         .build(&event_loop)
         .unwrap();
     #[cfg(target_os = "macos")]
@@ -84,9 +90,9 @@ fn main() -> wry::Result<()> {
             } else {
                 window.set_fullscreen(Some(Fullscreen::Borderless(None)));
             }
-        } else if req.starts_with("open_browser"){
-          let href = req.replace("open_browser:", "");
-          webbrowser::open(&href).expect("no browser");
+        } else if req.starts_with("open_browser") {
+            let href = req.replace("open_browser:", "");
+            webbrowser::open(&href).expect("no browser");
         }
     };
 
@@ -97,7 +103,8 @@ fn main() -> wry::Result<()> {
         .with_ipc_handler(handler)
         .build()?;
 
-    #[cfg(feature = "devtools")] {
+    #[cfg(feature = "devtools")]
+    {
         webview.open_devtools();
     }
 
@@ -105,7 +112,9 @@ fn main() -> wry::Result<()> {
         *control_flow = ControlFlow::Wait;
 
         match event {
-            Event::NewEvents(StartCause::Init) => println!("Wry has started!"),
+            Event::NewEvents(StartCause::Init) => {
+                println!("Wry has started!")
+            }
             Event::WindowEvent {
                 event: WindowEvent::CloseRequested,
                 ..

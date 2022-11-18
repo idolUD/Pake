@@ -1,16 +1,16 @@
 {
   "package": {
-    "productName": "WeRead",
+    "productName": "MoeCat",
     "version": "0.2.0"
   },
   "tauri": {
     "windows": [
       {
-        "url": "https://weread.qq.com/",
+        "url": "https://moe.cat/",
         "transparent": true,
         "fullscreen": false,
-        "width": 1200,
-        "height": 728,
+        "width": 390,
+        "height": 844,
         "resizable": true
       }
     ],
@@ -19,10 +19,9 @@
     },
     "bundle": {
       "icon": [
-        "icons/weRead.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tw93.weRead",
+      "identifier": "com.dray.monstodon",
       "active": true,
       "category": "DeveloperTool",
       "copyright": "",
