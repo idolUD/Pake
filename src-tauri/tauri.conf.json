@@ -26,7 +26,19 @@
       "category": "DeveloperTool",
       "copyright": "",
       "deb": {
-        "depends": []
+        "depends": [
+          "libwebkit2gtk-4.0-dev",
+          "build-essential",
+          "curl",
+          "wget",
+          "libssl-dev",
+          "libgtk-3-dev",
+          "libayatana-appindicator3-dev",
+          "librsvg2-dev"
+        ],
+        "files": {
+          "/usr/share/applications/com-tw93-weread.desktop": "assets/com-tw93-weread.desktop"
+        }
       },
       "externalBin": [],
       "longDescription": "",
@@ -39,11 +51,14 @@
       },
       "resources": [],
       "shortDescription": "",
-      "targets": "all",
+      "targets": ["deb", "msi", "dmg"],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
-        "timestampUrl": ""
+        "timestampUrl": "",
+        "wix": {
+          "language": ["en-US", "zh-CN"]
+      }
       }
     },
     "security": {

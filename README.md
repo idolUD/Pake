@@ -1,20 +1,20 @@
 <p align="left"><strong>中文</strong> | <a href="https://github.com/tw93/Pake/blob/master/README_EN.md">English</a></p>
 <p align="center">
-  <img src=https://gw.alipayobjects.com/zos/k/fa/logo-modified.png width=138/>
-  <h1 align="center">Pake</h1>
-  <div align="center">
+    <img src=https://gw.alipayobjects.com/zos/k/fa/logo-modified.png width=138/>
+<h1 align="center">Pake</h1>
+<div align="center">
     <a href="https://twitter.com/HiTw93" target="_blank">
-      <img alt="twitter" src="https://img.shields.io/twitter/follow/Hitw93?color=%231D9BF0&label=Pake%20%F0%9F%93%A2%20&logo=Twitter&style=flat-square"></a>
+    <img alt="twitter" src="https://img.shields.io/twitter/follow/Hitw93?color=%231D9BF0&label=Pake%20%F0%9F%93%A2%20&logo=Twitter&style=flat-square"></a>
     <a href="https://t.me/miaoyan" target="_blank">
-      <img alt="telegram" src="https://img.shields.io/badge/chat-telegram-blueviolet?style=flat-square&logo=Telegram"></a>
-     <a href="https://github.com/tw93/Pake/releases" target="_blank">
-      <img alt="GitHub downloads" src="https://img.shields.io/github/downloads/tw93/Pake/total.svg?style=flat-square"></a>
+    <img alt="telegram" src="https://img.shields.io/badge/chat-telegram-blueviolet?style=flat-square&logo=Telegram"></a>
+    <a href="https://github.com/tw93/Pake/releases" target="_blank">
+    <img alt="GitHub downloads" src="https://img.shields.io/github/downloads/tw93/Pake/total.svg?style=flat-square"></a>
     <a href="https://github.com/tw93/Pake/commits" target="_blank">
-      <img alt="GitHub commit" src="https://img.shields.io/github/commit-activity/m/tw93/Pake?style=flat-square"></a>
+    <img alt="GitHub commit" src="https://img.shields.io/github/commit-activity/m/tw93/Pake?style=flat-square"></a>
     <a href="https://github.com/tw93/Pake/issues?q=is%3Aissue+is%3Aclosed" target="_blank">
-      <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/tw93/Pake.svg?style=flat-square"></a>
-  </div>
-  <div align="left">很简单用 Rust 打包网页生成很小的 Mac App，支持 微信读书、Twitter、Youtube、Flomo、Reference、RunCode、Google Translate、语雀、Witeboard、Vercel、V2EX、开发工具箱等，欢迎去 <a href=https://github.com/tw93/Pake/discussions>讨论区</a> 交流分享。</div>
+    <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/tw93/Pake.svg?style=flat-square"></a>
+</div>
+<div align="left">很简单用 Rust 打包网页生成很小的桌面 App，支持 Mac/Windows/Linux 应用，当前已打包微信读书、Twitter、Youtube、Flomo、Reference、RunCode、Google Translate、语雀、Witeboard、Vercel、V2EX、开发工具箱等，欢迎去 <a href=https://github.com/tw93/Pake/discussions>讨论区</a> 交流分享。</div>
 </p>
 
 ## 特征
@@ -65,21 +65,29 @@
 
 ## 快捷键
 
-1. <kbd>⌘</kbd> + <kbd>[</kbd>：返回上一个页面
-2. <kbd>⌘</kbd> + <kbd>]</kbd>：去下一个页面
-3. <kbd>⌘</kbd> + <kbd>↑</kbd>：自动滚动到页面顶部
-4. <kbd>⌘</kbd> + <kbd>↓</kbd>：自动滚动到页面底部
-5. <kbd>⌘</kbd> + <kbd>r</kbd>：刷新页面
-6. <kbd>⌘</kbd> + <kbd>w</kbd>：隐藏窗口，非退出
-7. <kbd>⌘</kbd> + <kbd>-</kbd>：缩小页面
-8. <kbd>⌘</kbd> + <kbd>=</kbd>：放大页面
-9. <kbd>⌘</kbd> + <kbd>0</kbd>：重置页面缩放
+| Mac                         | Windows/Linux                  | 功能               |
+| --------------------------- | ------------------------------ | ------------------ |
+| <kbd>⌘</kbd> + <kbd>[</kbd> | <kbd>Ctrl</kbd> + <kbd>←</kbd> | 返回上一个页面     |
+| <kbd>⌘</kbd> + <kbd>]</kbd> | <kbd>Ctrl</kbd> + <kbd>→</kbd> | 去下一个页面       |
+| <kbd>⌘</kbd> + <kbd>↑</kbd> | <kbd>Ctrl</kbd> + <kbd>↑</kbd> | 自动滚动到页面顶部 |
+| <kbd>⌘</kbd> + <kbd>↓</kbd> | <kbd>Ctrl</kbd> + <kbd>↓</kbd> | 自动滚动到页面底部 |
+| <kbd>⌘</kbd> + <kbd>r</kbd> | <kbd>Ctrl</kbd> + <kbd>r</kbd> | 刷新页面           |
+| <kbd>⌘</kbd> + <kbd>w</kbd> | <kbd>Ctrl</kbd> + <kbd>w</kbd> | 隐藏窗口，非退出   |
+| <kbd>⌘</kbd> + <kbd>-</kbd> | <kbd>Ctrl</kbd> + <kbd>-</kbd> | 缩小页面           |
+| <kbd>⌘</kbd> + <kbd>w</kbd> | <kbd>Ctrl</kbd> + <kbd>+</kbd> | 放大页面           |
+| <kbd>⌘</kbd> + <kbd>=</kbd> | <kbd>Ctrl</kbd> + <kbd>=</kbd> | 放大页面           |
+| <kbd>⌘</kbd> + <kbd>0</kbd> | <kbd>Ctrl</kbd> + <kbd>0</kbd> | 重置页面缩放       |
 
 此外还支持双击头部进行全屏切换，拖拽头部进行移动窗口，还有其他需求，欢迎提过来。
 
+## 注意点
+
+- Windows 下不能安装到 C:\Program File，会直接闪退。建议安装到其他目录，比如 D:\Program Files。
+- Linux 下暂时不能存 cookie，即应用关闭后数据清空，账号自动推出。
+
 ## 开发
 
-开始前参考 [Tauri](https://tauri.app/v1/guides/getting-started/prerequisites#setting-up-macos) 快速配置好环境，如果你想打包 Windows、Linux 系统的包，可以参考 [Building](https://tauri.app/v1/guides/building/) 文档
+开始前参考 [Tauri](https://tauri.app/v1/guides/getting-started/prerequisites#setting-up-macos) 快速配置好环境。
 
 ```sh
 // 安装依赖
@@ -88,14 +96,26 @@ npm i
 // 调试
 npm run dev
 
-// 打包
+// 打包 Mac 应用
 npm run build
+
+// 打包 Windows 应用
+npm run build:windows
+
+// 打包 Linux 应用
+npm run build:linux
+
+// 一键打包所有 Mac/Linux 应用
+chmod +x ./script/build.sh && ./script/build.sh
+
+// 一键打包所有 Windows 项目
+.\script\build.bat
 ```
 
 ## 打新包
 
 1. 修改 `src-tauri` 目录下的 `tauri.conf.json` 中的 `url、productName、icon、identifier` 这 4 个字段，其中 icon 可以从 icons 目录选择一个，也可以去 [macOSicons](https://macosicons.com/#/) 下载符合产品名称的
-2. 关于窗口属性设置，可以在 `tauri.conf.json` 修改 `windows` 属性对应的 `width/height`，是否全屏 `fullscreen`，是否可以调整大小 `resizable`，假如想适配沉浸式头部，可以将 `transparent` 设置成 `true`，找到 Header 元素加一个 `padding-top` 样式即可，不想适配改成 `false` 也行
+2. 关于窗口属性设置，可以在 `tauri.conf.json` 修改 `windows` 属性对应的 `width/height`，是否全屏 `fullscreen`，是否可以调整大小 `resizable`，假如想适配 Mac 沉浸式头部，可以将 `transparent` 设置成 `true`，找到 Header 元素加一个 `padding-top` 样式即可，不想适配改成 `false` 也行
 3. `npm run dev` 本地调试看看效果，此外可以使用 `npm run dev:debug` 进行容器调试
 4. `npm run build` 运行即可打生产包
 
@@ -126,10 +146,10 @@ npm run build
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/liby">
-            <img src="https://avatars.githubusercontent.com/u/38807139?v=4" width="90;" alt="liby"/>
+        <a href="https://github.com/Tlntin">
+            <img src="https://avatars.githubusercontent.com/u/28218658?v=4" width="90;" alt="Tlntin"/>
             <br />
-            <sub><b>Bryan Lee</b></sub>
+            <sub><b>Tlntin</b></sub>
         </a>
     </td>
     <td align="center">
@@ -137,6 +157,13 @@ npm run build
             <img src="https://avatars.githubusercontent.com/u/28441561?v=4" width="90;" alt="pan93412"/>
             <br />
             <sub><b>Pan93412</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/liby">
+            <img src="https://avatars.githubusercontent.com/u/38807139?v=4" width="90;" alt="liby"/>
+            <br />
+            <sub><b>Bryan Lee</b></sub>
         </a>
     </td>
     <td align="center">
@@ -159,15 +186,15 @@ npm run build
             <br />
             <sub><b>2nthony</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/AielloChan">
             <img src="https://avatars.githubusercontent.com/u/7900765?v=4" width="90;" alt="AielloChan"/>
             <br />
             <sub><b>Aiello</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/houhoz">
             <img src="https://avatars.githubusercontent.com/u/19684376?v=4" width="90;" alt="houhoz"/>
@@ -201,4 +228,4 @@ npm run build
 ## 最后
 
 1. 希望大伙玩的过程中有一种学习新技术的喜悦感，如果有新点子欢迎告诉我
-2. 假如你发现有很适合做成 Mac App 的网页也很欢迎告诉我，我给加到里面来
+2. 假如你发现有很适合做成桌面 App 的网页也很欢迎告诉我，我给加到里面来

@@ -1,49 +1,109 @@
-#![cfg_attr(
-    all(not(debug_assertions), target_os = "windows"),
-    windows_subsystem = "windows"
-)] // 隐藏掉控制台窗口
+// at the top of main.rs - that will prevent the console from showing
+#![windows_subsystem = "windows"]
+extern crate image;
+
+// #![cfg_attr(
+//     all(not(debug_assertions), target_os = "windows"),
+//     windows_subsystem = "windows"
+// )] // 隐藏掉控制台窗口
 
 use tauri_utils::config::{Config, WindowConfig};
 #[cfg(target_os = "macos")]
 use wry::application::platform::macos::WindowBuilderExtMacOS;
+
+#[cfg(target_os = "macos")]
+use wry::{
+    application::{
+        accelerator::{Accelerator, SysMods},
+        event::{Event, StartCause, WindowEvent},
+        event_loop::{ControlFlow, EventLoop},
+        keyboard::KeyCode,
+        menu::{MenuBar as Menu, MenuItem, MenuItemAttributes, MenuType},
+        window::{Fullscreen, Window, WindowBuilder},
+    },
+    webview::WebViewBuilder,
+};
+
 #[cfg(target_os = "windows")]
-use wry::application::platform::windows::WindowBuilderExtWindows;
+use wry::{
+    application::{
+        event::{Event, StartCause, WindowEvent},
+        event_loop::{ControlFlow, EventLoop},
+        menu::MenuType,
+        window::{Fullscreen, Icon, Window, WindowBuilder},
+    },
+    webview::WebViewBuilder,
+};
+
+#[cfg(target_os = "linux")]
+use wry::{
+    application::{
+        event::{Event, StartCause, WindowEvent},
+        event_loop::{ControlFlow, EventLoop},
+        menu::MenuType,
+        window::{Fullscreen, Window, WindowBuilder},
+    },
+    webview::WebViewBuilder,
+};
 
 fn main() -> wry::Result<()> {
-    use wry::{
-        application::{
-            accelerator::{Accelerator, SysMods},
-            event::{Event, StartCause, WindowEvent},
-            event_loop::{ControlFlow, EventLoop},
-            keyboard::KeyCode,
-            menu::{MenuBar as Menu, MenuItem, MenuItemAttributes, MenuType},
-            window::{Fullscreen, Window, WindowBuilder},
-        },
-        webview::WebViewBuilder,
-    };
-
+    #[cfg(target_os = "macos")]
     let mut menu_bar_menu = Menu::new();
+    #[cfg(target_os = "macos")]
     let mut first_menu = Menu::new();
-
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Hide);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::EnterFullScreen);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Minimize);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Separator);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Copy);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Cut);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Paste);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Undo);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Redo);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::SelectAll);
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Separator);
+
+    #[cfg(target_os = "macos")]
     let close_item = first_menu.add_item(
         MenuItemAttributes::new("CloseWindow")
             .with_accelerators(&Accelerator::new(SysMods::Cmd, KeyCode::KeyW)),
     );
+
+    #[cfg(target_os = "macos")]
     first_menu.add_native_item(MenuItem::Quit);
 
+    #[cfg(target_os = "macos")]
     menu_bar_menu.add_submenu("App", true, first_menu);
-
+    #[cfg(target_os = "linux")]
+    let WindowConfig {
+        url,
+        width,
+        height,
+        resizable,
+        fullscreen,
+        ..
+    } = get_windows_config().unwrap_or_default();
+    #[cfg(target_os = "windows")]
+    let WindowConfig {
+        url,
+        width,
+        height,
+        resizable,
+        fullscreen,
+        ..
+    } = get_windows_config().unwrap_or_default();
+    #[cfg(target_os = "macos")]
     let WindowConfig {
         url,
         width,
@@ -52,7 +112,7 @@ fn main() -> wry::Result<()> {
         transparent,
         fullscreen,
         ..
-    } = get_windows_config().unwrap_or(WindowConfig::default());
+    } = get_windows_config().unwrap_or_default();
     let event_loop = EventLoop::new();
 
     let common_window = WindowBuilder::new()
@@ -63,14 +123,23 @@ fn main() -> wry::Result<()> {
             None
         })
         .with_inner_size(wry::application::dpi::LogicalSize::new(width, height));
+    #[cfg(target_os = "windows")]
+    let icon_path = concat!(env!("CARGO_MANIFEST_DIR"), "/png/weread_32.ico");
+    #[cfg(target_os = "windows")]
+    let icon = load_icon(std::path::Path::new(icon_path));
 
     #[cfg(target_os = "windows")]
     let window = common_window
         .with_decorations(true) // 显示标题栏和菜单栏
         .with_title("")
+        .with_window_icon(Some(icon))
         // .with_menu(menu_bar_menu) // 菜单栏内容
         .build(&event_loop)
         .unwrap();
+
+    #[cfg(target_os = "linux")]
+    let window = common_window.with_title("").build(&event_loop).unwrap();
+
     #[cfg(target_os = "macos")]
     let window = common_window
         .with_fullsize_content_view(true)
@@ -101,6 +170,7 @@ fn main() -> wry::Result<()> {
         .with_devtools(cfg!(feature = "devtools"))
         .with_initialization_script(include_str!("pake.js"))
         .with_ipc_handler(handler)
+        .with_back_forward_navigation_gestures(true)
         .build()?;
 
     #[cfg(feature = "devtools")]
@@ -124,10 +194,12 @@ fn main() -> wry::Result<()> {
                 origin: MenuType::MenuBar,
                 ..
             } => {
+                #[cfg(target_os = "macos")]
                 if menu_id == close_item.clone().id() {
                     webview.window().set_minimized(true);
                 }
                 println!("Clicked on {:?}", menu_id);
+                println!("Clicked on {:?}", webview.window().is_visible());
             }
             _ => (),
         }
@@ -138,5 +210,19 @@ fn get_windows_config() -> Option<WindowConfig> {
     let config_file = include_str!("../tauri.conf.json");
     let config: Config = serde_json::from_str(config_file).expect("failed to parse windows config");
 
-    config.tauri.windows.iter().next().cloned()
+    config.tauri.windows.first().cloned()
+}
+
+#[cfg(target_os = "windows")]
+fn load_icon(path: &std::path::Path) -> Icon {
+    let (icon_rgba, icon_width, icon_height) = {
+        // alternatively, you can embed the icon in the binary through `include_bytes!` macro and use `image::load_from_memory`
+        let image = image::open(path)
+            .expect("Failed to open icon path")
+            .into_rgba8();
+        let (width, height) = image.dimensions();
+        let rgba = image.into_raw();
+        (rgba, width, height)
+    };
+    Icon::from_rgba(icon_rgba, icon_width, icon_height).expect("Failed to open icon")
 }
