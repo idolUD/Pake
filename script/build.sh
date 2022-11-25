@@ -9,6 +9,8 @@ if [ ! -d "output" ]; then
     mkdir output
 fi
 
+echo "os: $OSTYPE"
+
 if [[ "$OSTYPE" =~ ^linux ]]; then
     if [ ! -d "output/linux" ]; then
         mkdir output/linux

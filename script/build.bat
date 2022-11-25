@@ -28,7 +28,7 @@ set /A total=total-1
 
 set old_name=weread
 set old_title=WeRead
-set old_zh_name=微信阅读
+set old_zh_name=????
 set old_url=https://weread.qq.com/
 
 :: for windows, we need replace package name to title
@@ -64,6 +64,12 @@ for /f "skip=1 tokens=1-4 delims=," %%i in (app.csv) do (
   @echo off
   call npm run tauri build -- --target x86_64-pc-windows-msvc
   move src-tauri\target\x86_64-pc-windows-msvc\release\bundle\msi\*.msi output\windows
+
+  @REM ?? exe ????????
+  if not exist output\windows\!name! (
+    mkdir output\windows\!name!
+  )
+  move src-tauri\target\x86_64-pc-windows-msvc\release\deps\app.exe output\windows\!name!
 
   @echo on
   echo package build success!
