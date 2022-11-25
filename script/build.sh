@@ -44,7 +44,7 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
     echo "rename package name"
     export desktop_file="src-tauri/assets/${package_prefix}.weread.desktop"
     # sed -i "s/\"productName\": \"weread\"/\"productName\": \"${package_prefix}-weread\"/g" src-tauri/tauri.conf.json
-    $sd "\"productName\": \"weread\"" "\"productName\": \"${package_prefix}-weread\"" src-tauri/tauri.conf.json
+    $sd "\"productName\": \"WeRead\"" "\"productName\": \"${package_prefix}-weread\"" src-tauri/tauri.conf.json
 fi
 
 if [[ "$OSTYPE" =~ ^darwin ]]; then
@@ -112,11 +112,12 @@ done
 
 echo "build all package success!"
 if [[ "$OSTYPE" =~ ^linux ]]; then
+$sd "\"productName\": \"com-tw93-weread\"" "\"productName\": \"WeRead\"" src-tauri/tauri.conf.json
     echo "result file in output/linux"
 fi
 
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     # replace again
-    $sd "\"productName\": \"WeRead\"" "\"productName\": \"weread\"" src-tauri/tauri.conf.json
+    $sd "\"productName\": \"weread\"" "\"productName\": \"WeRead\"" src-tauri/tauri.conf.json
     echo "result file in output/macos"
 fi
